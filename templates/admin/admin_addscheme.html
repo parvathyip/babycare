@@ -1,0 +1,91 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% block content %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/admin-dashboard">Admin <i class="ion-ios-arrow-forward"></i></a></span> <span>Add Scheme <i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+      
+      <section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+          <div class="container ">
+              <div class="row d-flex align-items-stretch no-gutters ">
+                  <div class="col-md-6 p-4 p-md-5 order-md-last bg-light mx-auto mt-5">
+                    <p style="text-align: center;"><b><i>Add Schemes</i></b></p>
+                      <form action="" method="post">
+                          {% csrf_token %}
+                          <div class="form-group">
+                              <input type="text" class="form-control" name="name" placeholder="Scheme Name">
+                          </div>
+                          <div class="form-group">
+                            <textarea name="desc" id="" cols="30" rows="7" class="form-control" placeholder="Scheme Description"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <textarea name="eligibility" id="" cols="30" rows="7" class="form-control" placeholder="Scheme Eligibility"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <textarea name="procedure" id="" cols="30" rows="7" class="form-control" placeholder="Scheme Procedure"></textarea>
+                          </div>
+                          <div class="form-group">
+                              <button type="submit" class="btn btn-primary py-3 px-5" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">
+                                  Add
+                                </button>
+                          </div>
+                      </form>
+                  </div>
+                  
+              </div>
+          </div>
+      </section>
+      <section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+        
+        <div class="container ">
+            
+            <div class="row d-flex align-items-stretch no-gutters ">
+                <p style="text-align: center;font-size: 3rem; margin-left: 40%; margin-top: 5%;"><b><i>Schemes</i></b></p>
+                <div class="col-md-6 mx-auto mt-3">
+                    
+                </div>
+                
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Published Date</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Eligibility</th>
+                            <th scope="col">Procedure</th>
+                            <th scope="col" colspan="2">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for scheme in schemes %}
+                          <tr>
+                            <td>{{scheme.published_on}}</td>
+                            <td>{{scheme.scheme_name}}</td>
+                            <td>{{scheme.scheme_desc}}</td>
+                            <td>{{scheme.scheme_eligibility}}</td>
+                            <td>{{scheme.scheme_procedure}}</td>
+                            <td><a href="/admin-deletescheme?sid={{scheme.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">Delete</a>
+                            </td>
+                            <td>                                <a href="/admin-updatescheme?sid={{scheme.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink; ">Update</a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    
+{% endblock  %}

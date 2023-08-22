@@ -1,0 +1,84 @@
+{% extends 'health/healthcenter_dashboard.html' %}
+{% block health %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/healthcenter-dashboard">HealthCenter <i class="ion-ios-arrow-forward"></i></a></span> <span>Add Disease Info <i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+      
+  <section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+  <div class="container ">
+      <div class="row d-flex align-items-stretch no-gutters ">
+          <div class="col-md-6 p-4 p-md-5 order-md-last bg-light mx-auto mt-5">
+              <form action="" method="post">
+                  {% csrf_token %}
+                 
+             <div class="form-group">
+                <input type="text" class="form-control" pattern="[a-zA-Z ]+" name="title" placeholder="Enter title">
+            </div>
+            <div class="form-group">
+                <textarea name="desc" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+              </div>
+              <div class="form-group">
+                <textarea name="symptom" id="" cols="30" rows="7" class="form-control" placeholder="Symptoms"></textarea>
+              </div>
+              <div class="form-group">
+                <textarea name="prevention" id="" cols="30" rows="7" class="form-control" placeholder="Prevention"></textarea>
+              </div>
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-primary py-3 px-5" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">
+                          Add
+                        </button>
+                  </div>
+              </form>
+          </div>
+          
+      </div>
+  </div>
+</section>
+<section class="contact-section mt-5">
+        
+    <div class="container ">
+        
+        <div class="row d-flex  ">
+            <p style="text-align: center;font-size: 3rem; margin-left: 35%; margin-top: 5%;"><b><i>View Diseases</i></b></p>
+            <div class="col-md-6 mx-auto mt-3">
+                
+            </div>
+            
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Symptoms</th>
+                        <th scope="col">Prevention</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for disease in diseases %}
+                      <tr>
+                        <td>{{disease.published_on}}</td>
+                        <td>{{disease.disease_title}}</td>
+                        <td>{{disease.disease_desc}}</td>
+                        <td>{{disease.disease_symptoms}}</td>
+                        <td>{{disease.disease_prevention}}</td>
+                            <td >
+                                <a href="/health-deletedisease?diseaseid={{ disease.id }}" class="btn btn-primary py-3 px-5" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">Delete</a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+        </div>
+    </div>
+</section>
+{% endblock health %}

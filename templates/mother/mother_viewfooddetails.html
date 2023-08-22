@@ -1,0 +1,65 @@
+{% extends 'mother/mother_dashboard.html' %}
+{% block mother %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <!-- Your hero section content -->
+</section>
+
+<section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11 mx-auto mt-5">
+                <p style="text-align: center;font-size: 3rem; margin-left: -8%; margin-top: 5%;"><b><i>Food Details</i></b></p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Given Date</th>
+                            <th scope="col">Food Name</th>
+                            <th scope="col">Units</th>
+                            <th scope="col">For</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for food in foods %}
+                            {% if mother_ischild == 'yes' and mother_ispregnant == 'yes' %}
+                                <!-- Display food details for pregnant mother with a child -->
+                                {% if food.food_for == 'Mother' or food.food_for == 'Child' %}
+                                    <tr>
+                                        <td>{{food.given_on}}</td>
+                                        <td>{{food.food_list}}</td>
+                                        <td>{{food.unit}}</td>
+                                        <td>{{food.food_for}}</td>
+                                        <td>{{food.detail_desc}}</td>
+                                    </tr>
+                                {% endif %}
+                            {% elif mother_ischild == 'yes' and mother_ispregnant == 'no' %}
+                                <!-- Display food details for mother with a child -->
+                                {% if food.food_for == 'Child' %}
+                                    <tr>
+                                        <td>{{food.given_on}}</td>
+                                        <td>{{food.food_list}}</td>
+                                        <td>{{food.unit}}</td>
+                                        <td>{{food.food_for}}</td>
+                                        <td>{{food.detail_desc}}</td>
+                                    </tr>
+                                {% endif %}
+                            {% elif mother_ischild == 'no' and mother_ispregnant == 'yes' %}
+                                <!-- Display food details for mother without a child -->
+                                {% if food.food_for == 'Mother' %}
+                                    <tr>
+                                        <td>{{food.given_on}}</td>
+                                        <td>{{food.food_list}}</td>
+                                        <td>{{food.unit}}</td>
+                                        <td>{{food.food_for}}</td>
+                                        <td>{{food.detail_desc}}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock mother %}

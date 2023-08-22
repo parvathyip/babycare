@@ -1,0 +1,66 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% for  message in messages %}
+<script>alert("{{message}}")</script>
+{% endfor %}
+{% block content %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/admin-dashboard">Admin <i class="ion-ios-arrow-forward"></i></a></span> <span>View Panchayat <i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+<section class="ftco-section">
+    <div class="m-5">
+        <table class="table" style="border: 1px solid grey;">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">District</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Email</th>
+              <th scope="col">Address</th>
+              <th scope="col">Pin</th>
+              <th scope="col">Wards</th>
+              <th scope="col" colspan="2" >Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for panchayat in panchayats %}
+            <tr>
+              <td>{{panchayat.panchayat_name}}</td>
+              <td>{{panchayat.district}}</td>
+              <td>{{panchayat.phone}}</td>
+              <td>{{panchayat.email}}</td>
+              <td>{{panchayat.address}}</td>
+              <td>{{panchayat.pin}}</td>
+              <td>
+                
+                <ol>
+                  {% for ward in panchayat.wards %}
+                  <li>
+                    <b><i><a href="/admin-viewwarddetails?wid={{ward}}" style="color: gray;">{{ward}}</a></i></b>
+                  </li>
+                  {% endfor %}
+                </ol>
+                
+              </td>
+              <td >
+                <a href="/admin-deletepanchayat?pid={{panchayat.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">Delete</a>
+              </td>
+              <td><a href="/admin-updatepanchayat?pid={{panchayat.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink; ">Update</a>
+              </td>
+              <!-- <td><a href="/admin-viewpanchayatdetails?pid={{panchayat.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink; ">View Wards</a>
+              </td> -->
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    
+</section>
+{% endblock content %}

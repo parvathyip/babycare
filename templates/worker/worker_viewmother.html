@@ -1,0 +1,133 @@
+{% extends 'worker/worker_dashboard.html' %}
+{% block worker %}
+<style>
+  .case-study {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  .case-study-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .case-study-content {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .case-study-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+  }
+  
+  .case-study-table th, .case-study-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .case-study-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .action-row {
+    background-color: black;
+  }
+  
+  .action-buttons a {
+    margin-right: 10px;
+    color: white;
+    text-decoration: none;
+    background-color: palevioletred;
+    border: 1px solid pink;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .action-buttons a:hover {
+    background-color: pink;
+    border-color: palevioletred;
+  }
+</style>
+
+
+<a href="/worker-addmotherfood" style="margin-left: 80px; margin-bottom: 15px; margin-right: 10px; color: white; text-decoration: none; background-color: palevioletred; border: 1px solid pink; border-radius: 5px; padding: 5px 10px; transition: background-color 0.3s, border-color 0.3s;">Add Food</a>
+<section class="case-study">
+  <div class="container">
+    <table class="case-study-table">
+      <tbody>
+        <!-- Loop through mothers -->
+        {% for mother in mothers %}
+        <tr>
+          <th>Si. No</th>
+          <td>{{ forloop.counter }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Name</th>
+          <td>{{ mother.first_name }} {{ mother.last_name }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Age</th>
+          <td>{{ mother.age }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Phone</th>
+          <td>{{ mother.phone }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Email</th>
+          <td>{{ mother.email }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Address</th>
+          <td>{{ mother.address }}</td>
+        </tr>
+        <tr>
+          <th>Pregnant</th>
+          <td>
+            {{ mother.is_pregnant }}
+            {% if mother.is_pregnant == 'yes' %}
+            <b>Pregnancy Month:</b> {{ mother.pregnancy_month }}<br>
+            <b>Mothers Weight:</b> {{ mother.pregnancy_weight }} Kg.
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>Have Child</th>
+          <td>
+            {{ mother.is_child }}
+            <ol>
+              <!-- Loop through children -->
+              {% for child in childs %}
+              {% if child.mother.id == mother.id %}
+              <li>
+                <b>Full name:</b> {{ child.first_name }} {{ child.last_name }}<br>
+                <b>Age:</b> {{ child.age }}<br>
+                <b>Weight:</b> {{ child.weight }}
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ol>
+          </td>
+        </tr>
+        <!-- <tr class="action-row">
+          <th>Action</th>
+          <td class="action-buttons">
+            <a href="/worker-addmotherfood?mid={{ mother.id }}">Add Food</a>
+          </td>
+        </tr> -->
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock worker %}

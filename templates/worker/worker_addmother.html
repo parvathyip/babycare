@@ -1,0 +1,225 @@
+{% extends 'worker/worker_dashboard.html' %}
+{% block worker %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/worker-dashboard">Worker <i class="ion-ios-arrow-forward"></i></a></span> <span>Add Mothers <i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+      
+  <section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+  <div class="container ">
+      <div class="row d-flex align-items-stretch no-gutters ">
+          <div class="col-md-6 p-4 p-md-5 order-md-last bg-light mx-auto mt-5">
+              <form action="" method="post">
+                  {% csrf_token %}
+                 
+             <div class="form-group">
+                <input type="text" class="form-control" pattern="[a-zA-Z ]+" name="fname" placeholder="First Name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" pattern="[a-zA-Z ]+" name="lname" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="uname" pattern="[a-zA-Z ]+" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="pwd" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$"  placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="number" name="age"  placeholder="Age">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="phone" placeholder="Phone" pattern="[6789][0-9]{9}" maxlength="10">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" >
+            </div>
+            <div class="form-group">
+                <textarea name="address" id="" cols="30" rows="7" class="form-control" placeholder="Address"></textarea>
+              </div>
+              <div class="form-check">
+                <p>Have child?</p>
+                <input class="form-check-input" type="radio" value="yes" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Yes
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" value="no" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    No
+                </label>
+            </div>
+            <div id="child-details-container" style="display: none;">
+                <h3>Add Child Details</h3>
+                <div style="
+                    border: 1px solid black;
+                    padding: 10px;
+                    margin-bottom: 10px;
+                ">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Enter childs firstname</label>
+                    <input type="text" pattern="[a-zA-Z ]+" class="form-control" name="cfirstname" id="childfname-1" placeholder="Enter child first name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Enter childs lastname</label>
+                    <input type="text" class="form-control" pattern="[a-zA-Z ]+" name="clastname" id="childlname-1" placeholder="Enter child last name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Enter childs age</label>
+                    <input type="number" class="form-control" name="cage" id="childage-1" placeholder="Enter child age">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Enter childs weight</label>
+                    <input type="munber" class="form-control" name="cweight" id="childweight-1" placeholder="Enter child weight">
+                </div>
+                <div id="dynamic-fields-container">
+                    <button type="button"  onclick="addFields()">+</button>
+                </div><br>
+                </div>
+            </div>
+            <div class="form-check">
+                <p>Is pregnent?</p>
+                <input class="form-check-input" value="yes" type="radio" name="pregnentMonth" id="pregnentMonth1">
+                <label class="form-check-label" for="pregnentMonth1">
+                    Yes
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" value="no" type="radio" name="pregnentMonth" id="pregnentMonth2" checked>
+                <label class="form-check-label" for="pregnentMonth2">
+                    No
+                </label>
+            </div>
+            <div id="pregnent-details-container" style="display: none;">
+                <h3>Add pregnency Details</h3>
+                <div style="
+                    border: 1px solid black;
+                    padding: 10px;
+                    margin-bottom: 10px;
+                ">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Enter pregnency month</label>
+                    <input type="number" class="form-control" name="pmonth" id="pregnency-month" placeholder="Enter pregnency month">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Enter Mother Weight</label>
+                    <input type="number" class="form-control" name="pweight" id="pregnency-weight" placeholder="Enter mother Weight">
+                </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary py-3 px-5" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">
+                    Add
+                </button>
+            </div>
+              </form>
+          </div>
+          
+      </div>
+  </div>
+</section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const haveChildRadio = document.querySelector("#flexRadioDefault1");
+        const childDetailsContainer = document.querySelector("#child-details-container");
+        const pregnentRadioYes = document.querySelector("#pregnentMonth1");
+        const pregnentDetailsContainer = document.querySelector("#pregnent-details-container");
+
+        // Event listener for "Have Child?" radio buttons
+        haveChildRadio.addEventListener("change", function () {
+            if (haveChildRadio.checked) {
+                childDetailsContainer.style.display = "block";
+            } else {
+                childDetailsContainer.style.display = "none";
+            }
+        });
+
+        // Event listener for "No" selection in "Have Child?" radio buttons
+        const haveChildRadioNo = document.querySelector("#flexRadioDefault2");
+        haveChildRadioNo.addEventListener("change", function () {
+            childDetailsContainer.style.display = "none";
+        });
+
+        // Event listener for "Is Pregnant?" radio buttons
+        pregnentRadioYes.addEventListener("change", function () {
+            if (pregnentRadioYes.checked) {
+                pregnentDetailsContainer.style.display = "block";
+            } else {
+                pregnentDetailsContainer.style.display = "none";
+            }
+        });
+
+        // Event listener for "No" selection in "Is Pregnant?" radio buttons
+        const pregnentRadioNo = document.querySelector("#pregnentMonth2");
+        pregnentRadioNo.addEventListener("change", function () {
+            pregnentDetailsContainer.style.display = "none";
+        });
+
+
+        // Other code specific to the radio button display logic
+
+    });
+
+    // Dynamic child field addition function
+    let counter = 1;
+
+    function addFields() {
+  const lastchildfname = document.getElementById(`childfname-${counter}`);
+  const lastchildlname = document.getElementById(`childlname-${counter}`);
+  const lastchildage = document.getElementById(`childage-${counter}`);
+  const lastchildweight = document.getElementById(`childweight-${counter}`);
+
+  // Check if the last fields are not empty
+  if (lastchildfname.value.trim() === '' || lastchildlname.value.trim() === '' || lastchildage.value.trim() === '' || lastchildweight.value.trim() === '') {
+    alert('Please fill out the existing child fields before adding more.');
+    return;
+  }
+
+  counter++;
+  const container = document.getElementById('dynamic-fields-container');
+
+  const childfnameField = document.createElement('div');
+  childfnameField.className = 'form-group';
+  childfnameField.innerHTML = `
+  <label for="exampleInputEmail1">Enter childs firstname</label>
+  <input type="text" class="form-control" name="cfirstname" id="childfname-${counter}" placeholder="Enter child first name">
+  `;
+
+  const childlnameField = document.createElement('div');
+  childlnameField.className = 'form-group';
+  childlnameField.innerHTML = `
+  <label for="exampleInputEmail1">Enter childs lastname</label>
+  <input type="text" class="form-control" name="clastname" id="childlname-${counter}" placeholder="Enter child last name">
+  `;
+  
+  const childageField = document.createElement('div');
+  childageField.className = 'form-group';
+  childageField.innerHTML = `
+  <label for="exampleInputEmail1">Enter childs age</label>
+  <input type="text" class="form-control" name="cage" id="childage-${counter}" placeholder="Enter child age">
+  `;
+
+  const childweightField = document.createElement('div');
+  childweightField.className = 'form-group';
+  childweightField.innerHTML = `
+  <label for="exampleInputEmail1">Enter childs weight</label>
+  <input type="text" class="form-control" name="cweight" id="childweight-${counter}" placeholder="Enter child weight">
+  `;
+
+  container.appendChild(childfnameField);
+  container.appendChild(childlnameField);
+  container.appendChild(childageField);  // Add child age field
+  container.appendChild(childweightField);
+}
+
+</script>
+
+{% endblock worker %}

@@ -1,0 +1,68 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% block content %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/admin-dashboard">Admin <i class="ion-ios-arrow-forward"></i></a></span> <span>View Vaccinations Info List<i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+      
+  
+<section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+        
+    <div class="container ">
+        
+        <div class="row d-flex align-items-stretch no-gutters ">
+            <p style="text-align: center;font-size: 3rem; margin-left: 30%; margin-top: 5%;"><b><i>View Vaccineinfo</i></b></p>
+            <div class="col-md-6 mx-auto mt-3">
+                
+            </div>
+            
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">PublishedDate</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Hospital Info</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Prevention</th>
+                        <th scope="col">Dose</th>
+                        <th>Number</th>
+                        <th scope="col">Vaccination Date</th>
+                        <th scope="col">Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for vaccine in vaccines %}
+                      <tr>
+                        <td>{{vaccine.published_on}}</td>
+                        <td>{{vaccine.vaccination_name}}</td>
+                        <td>{{vaccine.healthcentre.health_name}}<br>
+                          {{vaccine.healthcentre.health_address}}
+                        </td>
+                        <td>{{vaccine.vaccination_desc}}</td>
+                        <td>{{vaccine.vaccination_age}}</td>
+                        <td>{{vaccine.disease_prevented}}</td>
+                        <td>{{vaccine.dose}}</td>
+                        <td>{{vaccine.availabecount}}</td>
+                        {% if vaccine.vaccination_date != None %}
+                        <td>{{ vaccine.vaccination_date }}</td>
+                        <td>{{ vaccine.vaccination_from }} - {{ vaccine.vaccination_to }}</td>
+                        {% else %}
+                        <td></td>
+                        <td></td>
+                        {% endif %}
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+        </div>
+    </div>
+</section>
+{% endblock content %}

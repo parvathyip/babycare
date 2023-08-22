@@ -1,0 +1,90 @@
+{% extends 'panchayat/panchayat_dashboard.html' %}
+{% block panchayat %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/panchayat-dashboard">Panchayat <i class="ion-ios-arrow-forward"></i></a></span> <span>Add Ward <i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+      
+      <section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+          <div class="container ">
+              <div class="row d-flex align-items-stretch no-gutters ">
+                  <div class="col-md-6 p-4 p-md-5 order-md-last bg-light mx-auto mt-5">
+                    <p style="text-align: center;"><b><i>Add Wards</i></b></p>
+                      <form action="" method="post">
+                          {% csrf_token %}
+                          <div class="form-group">
+                              <input type="text" class="form-control" pattern="[0-9]+" name="ward" placeholder="Ward Name">
+                          </div>
+                          <div class="form-group">
+                              <button type="submit" class="btn btn-primary py-3 px-5" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">
+                                  Add
+                                </button>
+                          </div>
+                      </form>
+                  </div>
+                  
+              </div>
+          </div>
+      </section>
+
+
+    <style>
+      table {
+          border-collapse: collapse;
+          width: 50%;
+      }
+  
+      th,
+      td {
+          text-align: center;
+          padding: 8px;
+      }
+  
+      /* tr:nth-child(even) { */
+          /* background-color: #D6EEEE; */
+      /* } */
+  
+      img {
+          width: 100px;
+          height: 100px;
+      }
+  
+      #img {
+          width: 40px;
+          height: 40px;
+      }
+  </style>
+  <section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+    <div class="container">
+      <div class="row">
+        <p style="text-align: center; font-size: 3rem; margin-left: 40%; margin-top: 5%;"><b><i>Wards</i></b></p>
+            <div class="col-md-6 mx-auto mt-3">
+                
+            </div>
+            <table id="myTable" style="margin-left: 27%; margin-top: -2%;">
+              <tr class="header">
+               
+                    <th>Name</th>
+                    <th>Action</th>
+                 
+                    {% for ward in wards %}
+                    <tr>
+                      <td>{{ward.ward_name}}</td>
+                      <td><a href="/panchayat-deleteward?wid={{ward.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">Delete</a>
+                          <a href="/panchayat-updateward?wid={{ward.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink; ">Update</a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+            </table><br><br><br><br>
+      </div>
+    </div>
+  
+  </section>
+{% endblock panchayat %}

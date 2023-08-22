@@ -1,0 +1,52 @@
+{% extends 'panchayat/panchayat_dashboard.html' %}
+{% block panchayat %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/panchayat-dashboard">Panchayat <i class="ion-ios-arrow-forward"></i></a></span> <span>view Worker <i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+      
+      <section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+        
+        <div class="container ">
+            <p style="text-align: center; font-size: 3rem; margin-left: -10%; margin-top: 5%;"><b><i>View Worker</i></b></p>
+            <div class="row d-flex align-items-stretch no-gutters ">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Ward</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for worker in workers %}
+                      <tr>
+                        <td>{{worker.first_name}} {{worker.last_name}}</td>
+                        <td>{{worker.ward}}</td>
+                        <td>{{worker.age}}</td>
+                        <td>{{worker.phone}}</td>
+                        <td>{{worker.email}}</td>
+                        <td>{{worker.address}}</td>
+                        <td><a href="/panchayat-deleteworker?wid={{worker.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">Delete</a>
+                            <a href="/panchayat-updateworker?wid={{worker.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink; ">Update</a>
+                        </td>
+                      </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+                
+            </div>
+        </div>
+    </section>
+{% endblock panchayat %}

@@ -1,0 +1,65 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% block content %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/admin-dashboard">Admin <i class="ion-ios-arrow-forward"></i></a></span> <span>View Child Care Tips <i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <style>
+      table {
+          border-collapse: collapse;
+          width: 50%;
+      }
+  
+      th,
+      td {
+          text-align: center;
+          padding: 8px;
+      }
+  
+      /* tr:nth-child(even) { */
+          /* background-color: #D6EEEE; */
+      /* } */
+  
+      img {
+          width: 100px;
+          height: 100px;
+      }
+  
+      #img {
+          width: 40px;
+          height: 40px;
+      }
+  </style>
+  
+  <div class="col-md-8">
+      <div class="section-heading mb-sm-5 mb-4">
+        <p style="text-align: center;font-size: 3rem; margin-left: 40%; margin-top: 3%;"><b><i>Child Care Tips</i></b></p>
+  
+      </div>
+  </div>
+  <table id="myTable" style="margin-left: 23%; margin-top:3%;">
+      <tr class="header">
+       
+            <th>Name</th>
+            <th>Description</th>
+            <th>Published By</th>
+         
+            {% for tip in tips %}
+            <tr>
+              <td>{{tip.tip_name}}</td>
+              <td>{{tip.tip_desc}}</td>
+              <td>{{tip.worker.first_name}} {{tip.worker.last_name}},
+                  <i>{{tip.worker.ward.ward_name}} Ward</i>
+              </td>
+            </tr>
+            {% endfor %}
+    </table>
+{% endblock %}

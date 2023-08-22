@@ -1,0 +1,53 @@
+{% extends 'panchayat/panchayat_dashboard.html' %}
+{% block panchayat %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/panchayat-dashboard">Panchayat <i class="ion-ios-arrow-forward"></i></a></span> <span>view HealthCenters <i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+      
+      <section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+        
+        <div class="container ">
+            <p style="text-align: center; font-size: 3rem; margin-left: -10%; margin-top: 5%;"><b><i>View Health Center</i></b></p>
+            <div class="row d-flex align-items-stretch no-gutters ">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Panchayat</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Address</th>
+                        <th scope="col" colspan="2">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for health in healths %}
+                      <tr>
+                        <td>{{health.panchayat.panchayat_name}}</td>
+                        <td>{{health.health_name}}</td>
+                        <td>{{health.health_phone}}</td>
+                        <td>{{health.email}}</td>
+                        <td>{{health.health_address}}</td>
+                        <td><a href="/panchayat-deletehealthcenter?hid={{health.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">Delete</a>
+                        </td>
+                        <td>
+                          <a href="/panchayat-updatehealthcenter?hid={{health.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 5px; background-color: palevioletred; border-color: pink; ">Update</a>
+
+                        </td>
+                      </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+                
+            </div>
+        </div>
+    </section>
+{% endblock panchayat %}

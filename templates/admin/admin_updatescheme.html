@@ -1,0 +1,45 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% block content %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+          <p class="breadcrumbs"><span class="mr-2"><a href="/admin-dashboard">Admin <i class="ion-ios-arrow-forward"></i></a></span> <span>Add Scheme <i class="ion-ios-arrow-forward"></i></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+      
+      <section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+          <div class="container ">
+              <div class="row d-flex align-items-stretch no-gutters ">
+                  <div class="col-md-6 p-4 p-md-5 order-md-last bg-light mx-auto mt-5">
+                    <p style="text-align: center;"><b><i>Update Schemes</i></b></p>
+                      <form action="" method="post">
+                          {% csrf_token %}
+                          <div class="form-group">
+                              <input type="text" class="form-control" value="{{scheme.scheme_name}}" pattern="[a-zA-Z ]+" name="name" placeholder="Scheme Name">
+                          </div>
+                          <div class="form-group">
+                            <textarea name="desc" id="" value="" cols="30" rows="7" class="form-control" placeholder="Scheme Description">{{scheme.scheme_desc}}</textarea>
+                          </div>
+                          <div class="form-group">
+                            <textarea name="eligibility" value="" id="" cols="30" rows="7" class="form-control" placeholder="Scheme Eligibility">{{scheme.scheme_eligibility}}</textarea>
+                          </div>
+                          <div class="form-group">
+                            <textarea name="procedure" value="" id="" cols="30" rows="7" class="form-control" placeholder="Scheme Procedure">{{scheme.scheme_procedure}}</textarea>
+                          </div>
+                          <div class="form-group">
+                              <button type="submit" class="btn btn-primary py-3 px-5" style="border-radius: 5px; background-color: palevioletred; border-color: pink;">
+                                  Update
+                                </button>
+                          </div>
+                      </form>
+                  </div>
+                  
+              </div>
+          </div>
+      </section>
+{% endblock  %}

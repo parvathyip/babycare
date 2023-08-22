@@ -1,0 +1,150 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% block content %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bgg.jpg'); height: 500px; object-fit: cover !important;">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-center justify-content-center">
+      <div class="col-md-9 ftco-animate text-center">
+        <!-- <h1 class="mb-2 bread">Contact Us</h1> -->
+        <p class="breadcrumbs"><span class="mr-2"><a href="/admin-dashboard">Admin <i class="ion-ios-arrow-forward"></i></a></span> <span>View Ward details <i class="ion-ios-arrow-forward"></i></span></p>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .case-study {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  .case-study-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .case-study-content {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .case-study-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+  }
+  
+  .case-study-table th, .case-study-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .case-study-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .action-row {
+    background-color: black;
+  }
+  
+  .action-buttons a {
+    margin-right: 10px;
+    color: white;
+    text-decoration: none;
+    background-color: palevioletred;
+    border: 1px solid pink;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .action-buttons a:hover {
+    background-color: pink;
+    border-color: palevioletred;
+  }
+</style>
+
+<div class="container">
+  <a href="/admin-viewworkers?wardid={{warddata}}" class="btn btn-primary py-2 px-4" style="margin-top: 27px; margin-right: 15px; border-radius: 5px; background-color: palevioletred; border-color: pink;">View Workers</a>
+  <a href="/admin-viewmotherfood?wardid={{warddata}}" class="btn btn-primary py-2 px-4"style="margin-top: 27px; margin-right: 15px; border-radius: 5px; background-color: palevioletred; border-color: pink;">View Food</a><br>
+
+  <h2 style="text-align: center; color: #E2E6DE;"><b><i>List of mothers and its details at {{warddata}} ward</i></b></h2>
+</div><br>
+<section class="case-study">
+  <div class="container">
+    <table class="case-study-table">
+      <tbody>
+        <!-- Loop through mothers -->
+        {% for mother in motherdata %}
+        
+        <tr>
+          <th>Si. No</th>
+          <td>{{ forloop.counter }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Name</th>
+          <td>{{ mother.first_name }} {{ mother.last_name }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Age</th>
+          <td>{{ mother.age }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Phone</th>
+          <td>{{ mother.phone }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Email</th>
+          <td>{{ mother.email }}</td>
+        </tr>
+        <tr>
+          <th>Mothers Address</th>
+          <td>{{ mother.address }}</td>
+        </tr>
+        <tr>
+          <th>Pregnant</th>
+          <td>
+            {{ mother.is_pregnant }}
+            {% if mother.is_pregnant == 'yes' %}
+            <b>Pregnancy Month:</b> {{ mother.pregnancy_month }}<br>
+            <b>Mothers Weight:</b> {{ mother.pregnancy_weight }} Kg.
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>Have Child</th>
+          <td>
+            {{ mother.is_child }}
+            <ol>
+              <!-- Loop through children -->
+              {% for child in childs %}
+              {% if child.mother.id == mother.id %}
+              <li>
+                <b>Full name:</b> {{ child.first_name }} {{ child.last_name }}<br>
+                <b>Age:</b> {{ child.age }}<br>
+                <b>Weight:</b> {{ child.weight }}
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ol>
+          </td>
+        </tr>
+        <!-- <tr class="action-row">
+          <th>Action</th>
+          <td class="action-buttons">
+            <a href="/admin-viewmotherfood?mid={{ mother.id }}">View Food</a>
+          </td>
+        </tr> -->
+        
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock  %}
